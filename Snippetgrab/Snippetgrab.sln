@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippetgrab", "Snippetgrab\Snippetgrab.csproj", "{F233B663-D364-4864-B7FE-8E889C552E15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnippetgrabClasslibrary", "SnippetgrabClasslibrary\SnippetgrabClasslibrary.csproj", "{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F233B663-D364-4864-B7FE-8E889C552E15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F233B663-D364-4864-B7FE-8E889C552E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F233B663-D364-4864-B7FE-8E889C552E15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F233B663-D364-4864-B7FE-8E889C552E15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
