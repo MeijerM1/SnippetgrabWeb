@@ -30,7 +30,6 @@ namespace SnippetgrabClasslibrary.Data
                 command.ExecuteNonQuery();
                 return true;
             }
-            return false;
         }
 
         public bool AddProblem(Problem problem)

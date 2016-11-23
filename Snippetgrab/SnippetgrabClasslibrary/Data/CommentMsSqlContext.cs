@@ -58,7 +58,6 @@ namespace SnippetgrabClasslibrary.Data
                 command.ExecuteNonQuery();
                 return true;
             }
-            return false;
         }
 
         public List<Comment> GetAll()

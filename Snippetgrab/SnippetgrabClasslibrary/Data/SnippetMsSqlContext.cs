@@ -20,17 +20,18 @@ namespace SnippetgrabClasslibrary.Data
         public bool ChangePoint(int snippetId, int increaseDecrease)
         {
             using (var conn = new SqlConnection(SqlCon))
-            using (var command = new SqlCommand("dbo.ChangePoint", conn))
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add(new SqlParameter("@ItemID", snippetId));
-                command.Parameters.Add(new SqlParameter("@IncreaseDecrease", increaseDecrease));
-                command.Parameters.Add(new SqlParameter("@TypeToIncrease", "Snippet"));
-                conn.Open();
-                command.ExecuteNonQuery();
-                return true;
+                using (var command = new SqlCommand("dbo.ChangePoint", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ItemID", snippetId);
+                    command.Parameters.Add(new SqlParameter("@IncreaseDecrease", increaseDecrease));
+                    command.Parameters.Add(new SqlParameter("@TypeToIncrease", "Snippet"));
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    return true;
+                }
             }
-            return false;
         }
 
         public bool AddSnippet(Snippet snippet)
