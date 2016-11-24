@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnippetgrabClasslibrary", "SnippetgrabClasslibrary\SnippetgrabClasslibrary.csproj", "{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippetgrab", "Snippetgrab\Snippetgrab\Snippetgrab.csproj", "{18E28B50-4E20-4DF6-959B-DDD350FF48BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippetgrab", "Snippetgrab\Snippetgrab.csproj", "{F5434F82-08B9-4986-B454-2321FB9B59F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E44462D4-7207-4E50-8D0B-BEB403D8A5F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18E28B50-4E20-4DF6-959B-DDD350FF48BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18E28B50-4E20-4DF6-959B-DDD350FF48BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18E28B50-4E20-4DF6-959B-DDD350FF48BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18E28B50-4E20-4DF6-959B-DDD350FF48BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5434F82-08B9-4986-B454-2321FB9B59F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5434F82-08B9-4986-B454-2321FB9B59F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5434F82-08B9-4986-B454-2321FB9B59F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5434F82-08B9-4986-B454-2321FB9B59F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
