@@ -40,5 +40,11 @@ namespace SnippetgrabClasslibrary.Models
             IsAdmin = isAdmin;
             Tags = tags;
         }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return Name + "ID: " + ID;
+        }
     }
 }

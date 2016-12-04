@@ -11,10 +11,7 @@ namespace SnippetgrabClasslibrary.Data
 {
     public class TagMsSqlContext : ITagContext
     {
-        private const string SqlCon = @"Data Source = (LocalDB)\MSSQLLocalDB;" +
-                      @"AttachDbFilename=|DataDirectory|\Snippetgrab.mdf;" +
-                      "Integrated Security = True;" +
-                      "Connect Timeout = 30";
+        private const string SqlCon = @"Server = mssql.fhict.local; Database=dbi356615;User Id = dbi356615; Password=Kipgarfield1";
 
         public bool AddTag(Tag tag)
         {

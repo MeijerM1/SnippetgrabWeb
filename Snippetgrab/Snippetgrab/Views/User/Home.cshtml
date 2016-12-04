@@ -1,0 +1,39 @@
+﻿
+@using System.Web.Services.Description
+@model Snippetgrab.Models.UserModel
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Users</h2>
+<div class="row">
+
+<div class="col-lg-6">
+    <p class="center-block"> Gebruikers</p>
+    <div class="row">
+        <div class="col-lg-6">
+            <p>Naam</p>
+        </div>
+        <div class="col-lg-6">
+            <p>Email</p>
+        </div>
+    </div>
+
+    @{
+        foreach (var User in Model.Users)
+        { 
+            <div class="row">
+                <div class="col-md-6">
+                    <p>@User.Name</p>
+                </div>
+                <div class="col-md-6">
+                    <p>@User.Email</p>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+</div>
+

@@ -21,5 +21,11 @@ namespace SnippetgrabClasslibrary.Models
         {
             Text = text;
         }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return "ID: " + ID + " Text: " + Text;
+        }
     }
 }

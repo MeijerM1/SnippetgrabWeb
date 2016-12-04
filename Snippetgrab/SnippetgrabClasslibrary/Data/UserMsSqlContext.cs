@@ -12,10 +12,7 @@ namespace SnippetgrabClasslibrary.Data
 {
     public class UserMsSqlContext : IUserContext
     {
-        private const string SqlCon = @"Data Source = (LocalDB)\MSSQLLocalDB;" +
-                                      @"AttachDbFilename=|DataDirectory|\Snippetgrab.mdf;" +
-                                      "Integrated Security = True;" +
-                                      "Connect Timeout = 30";
+        private const string SqlCon = @"Server = mssql.fhict.local; Database=dbi356615;User Id = dbi356615; Password=Kipgarfield1";
 
         public bool CheckPassword(string email, string password)
         {
@@ -100,9 +97,9 @@ namespace SnippetgrabClasslibrary.Data
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
