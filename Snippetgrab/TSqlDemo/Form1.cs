@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SnippetgrabClasslibrary.Data;
 using SnippetgrabClasslibrary.Logic;
+using SnippetgrabClasslibrary.Models;
 
 namespace TSqlDemo
 {
     public partial class Form1 : Form
     {
-        private const string SqlCon = @"Server = mssql.fhict.local; Database=dbi356615;User Id = dbi356615; Password=Kipgarfield1";
+        private const string SqlCon = @"Data Source=192.168.19.152,1433\\MSSQLSERVER; Network Library = DBMSSOCN; Initial Catalog = dbi356615; User ID=dbuser;Password=Wachtwoord1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         private TagRepository tagRepo = new TagRepository(new TagMsSqlContext());
         private UserRepository userRepo = new UserRepository(new UserMsSqlContext());
@@ -24,12 +25,13 @@ namespace TSqlDemo
         public Form1()
         {
             InitializeComponent();
-            LoadTags();
+            //LoadTags();
         }
 
         private void Notify_Click(object sender, EventArgs e)
         {
-            NotifyCommand(Convert.ToInt32(nudUploader.Text), lbTags.SelectedIndex, tbLink.Text);
+            int userID = (int)nudUploader.Value;
+            userRepo.ResetPassword(userID, "test");
         }
 
         private void LoadTags()
@@ -63,6 +65,25 @@ namespace TSqlDemo
                     command.Parameters.Add(new SqlParameter("@Link", link));
                     conn.Open();
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private string RemoveWords(string stringToClean)
+        {
+            using (var conn = new SqlConnection(SqlCon))
+            {
+                using (var command = new SqlCommand("dbo.CheckWordsToRemove", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@StringToCheck", stringToClean);
+                    command.Parameters.AddWithValue("@CurrentWord", "");
+                    SqlParameter retval = command.Parameters.Add("@StringToReturn", SqlDbType.NVarChar);
+                    retval.Direction = ParameterDirection.Output;
+                    retval.Size = 50;
+                    command.ExecuteNonQuery();
+                    return (string)command.Parameters["@StringToReturn"].Value;
                 }
             }
         }

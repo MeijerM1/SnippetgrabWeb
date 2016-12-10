@@ -12,7 +12,7 @@ namespace SnippetgrabClasslibrary.Data
 {
     public class UserMsSqlContext : IUserContext
     {
-        private const string SqlCon = @"Server = mssql.fhict.local; Database=dbi356615;User Id = dbi356615; Password=Kipgarfield1";
+        private const string SqlCon = @"Data Source=192.168.19.152,1433\\MSSQLSERVER; Network Library = DBMSSOCN; Initial Catalog = dbi356615; User ID=dbuser;Password=Wachtwoord1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public bool CheckPassword(string email, string password)
         {
@@ -195,7 +195,7 @@ namespace SnippetgrabClasslibrary.Data
 
         public bool ResetPassword(int userId, string password)
         {
-            var QueryString = "UPDATE User SET Salt=@salt, HashedPassword=@password WHERE UserID=id";
+            var QueryString = "UPDATE [User] SET Salt=@salt, HashedPassword=@password WHERE UserID=@id";
 
             var salt = CreateSalt();
             var hashedPassword = GenerateSha256Hash(password, salt);
@@ -214,8 +214,9 @@ namespace SnippetgrabClasslibrary.Data
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                Console.WriteLine(exception.Message);
                 return false;
             }
         }

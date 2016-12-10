@@ -7,6 +7,7 @@ using System.Web.UI;
 using Snippetgrab.Models;
 using SnippetgrabClasslibrary.Data;
 using SnippetgrabClasslibrary.Logic;
+using SnippetgrabClasslibrary.Models;
 
 namespace Snippetgrab.Controllers
 {
@@ -22,25 +23,29 @@ namespace Snippetgrab.Controllers
         }
 
 
-        public ActionResult Home()
+        public ActionResult LogIn()
         {
             UserModel um = new UserModel();
             return View(um);
         }
 
-        /*[HttpPost]
+        [HttpPost]
         public ActionResult Home(string email, string password)
         {
             UserModel um = new UserModel();
             if (_userRepo.CheckPassword(email, password))
             {
+                User user = _userRepo.GetUserByEmail(email);
+                um.ActiveUser = user;
+                um.GetMessages();
+                Session["UserEmail"] = email;
                 return View(um);
             }
             else
             {
-                return Index();   
+                return LogIn();   
             }
 
-        }*/
+        }
     }
 }

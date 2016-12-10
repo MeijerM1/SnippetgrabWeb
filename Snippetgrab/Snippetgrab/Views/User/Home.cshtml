@@ -9,31 +9,59 @@
 <h2>Users</h2>
 <div class="row">
 
-<div class="col-lg-6">
-    <p class="center-block"> Gebruikers</p>
-    <div class="row">
-        <div class="col-lg-6">
-            <p>Naam</p>
+    <div class="col-lg-6">
+        <p class="center-block"> Gebruikers</p>
+        <div class="row">
+            <div class="col-lg-6">
+                <p>Naam</p>
+            </div>
+            <div class="col-lg-6">
+                <p>Email</p>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <p>Email</p>
-        </div>
-    </div>
 
-    @{
-        foreach (var User in Model.Users)
-        { 
-            <div class="row">
-                <div class="col-md-6">
-                    <p>@User.Name</p>
+        @{
+            foreach (var User in Model.Users)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>@User.Name</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>@User.Email</p>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <p>@User.Email</p>
+            }
+        }
+
+        <div class="Recent messages" align="right">
+            <div class="container" style="border-style: solid;">
+                <div class="col-md-9">
+                    <p> Messages</p>
+                    <div class="col-md-9">
+                        <p>Text</p>
+                    </div>
+                    <div class="col-lg-10">
+                        <p>Sender</p>
+                    </div>
+                    @{
+
+
+                        foreach (var message in Model.Messages)
+                        {
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p>@message.MessageText</p>
+                                </div>
+                                <div class="col-md-10">
+                                    <p>@message.SenderID</p>
+                                </div>
+                            </div>
+                        }
+
+                    }
                 </div>
             </div>
-        }
-    }
-
+        </div>
+    </div>
 </div>
-</div>
-
