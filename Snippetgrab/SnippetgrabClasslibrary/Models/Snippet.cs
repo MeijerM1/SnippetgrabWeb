@@ -15,6 +15,11 @@ namespace SnippetgrabClasslibrary.Models
         public int AuthorID { get; set; }
         public List<int> Tags { get; set; }
 
+        public Snippet()
+        {
+            
+        }
+
         public Snippet(int id, string code, int points, bool isPrivate, int authorId, List<int> tags)
         {
             Tags= new List<int>();
@@ -36,6 +41,14 @@ namespace SnippetgrabClasslibrary.Models
             IsPrivate = isPrivate;
             AuthorID = authorId;
             Tags = tags;
+        }
+
+        public Snippet(string code, int points, bool isPrivate, int authorId)
+        {
+            Code = code;
+            Points = points;
+            IsPrivate = isPrivate;
+            AuthorID = authorId;
         }
     }
 }

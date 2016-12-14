@@ -31,5 +31,10 @@ namespace SnippetgrabClasslibrary.Logic
         {
             return _context.RemoveMessage(id);
         }
+
+        public List<Message> GetMostRecent(int userId)
+        {
+            return _context.GetMostRecent(userId);
+        }
     }
 }

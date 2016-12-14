@@ -24,5 +24,7 @@ namespace SnippetgrabClasslibrary.ContextInterfaces
         bool ChangePrivateModifier(int snippetId, bool isPrivate);
 
         bool ChangePoint(int snippetId, int increaseDecrease);
+
+        List<Snippet> GetMostRecent();
     }
 }

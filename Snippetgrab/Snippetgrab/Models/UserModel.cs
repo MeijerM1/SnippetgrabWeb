@@ -15,9 +15,7 @@ namespace Snippetgrab.Models
 
         public List<User> Users { get; set; }
         public User ActiveUser { get; set; }
-
-        public List<Message> Messages = new List<Message>();
-
+        public Dictionary<Message, User> MessagesButBetter { get; set; }
 
         public UserModel()
         {
@@ -28,8 +26,15 @@ namespace Snippetgrab.Models
 
         public void GetMessages()
         {
-            Messages = new List<Message>();
-            Messages = _messageRepo.GetMessageByUser(ActiveUser.ID);
+            MessagesButBetter = new Dictionary<Message, User>();
+            var messages = new List<Message>();
+            messages = _messageRepo.GetMostRecent(ActiveUser.ID);
+
+            foreach (var message in messages)
+            {
+                var user  =_userRepo.GetUserById(message.SenderID);
+                MessagesButBetter.Add(message, user);
+            }                      
         }
     }
 }

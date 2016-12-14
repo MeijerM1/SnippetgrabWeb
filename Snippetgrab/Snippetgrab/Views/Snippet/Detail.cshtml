@@ -1,0 +1,49 @@
+﻿@model Snippetgrab.Models.SnippetModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>Snippet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SnippetToDisplay.Item2.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SnippetToDisplay.Item2.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SnippetToDisplay.Item1.Points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SnippetToDisplay.Item1.Points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SnippetToDisplay.Item1.IsPrivate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SnippetToDisplay.Item1.IsPrivate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SnippetToDisplay.Item1.Code)
+        </dt>
+
+        <dd>
+            @Html.TextAreaFor(model => model.SnippetToDisplay.Item1.Code, new { rows=20, cols=80})
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

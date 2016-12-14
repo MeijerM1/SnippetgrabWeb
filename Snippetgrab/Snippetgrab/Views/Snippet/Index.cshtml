@@ -1,0 +1,43 @@
+﻿@model Snippetgrab.Models.SnippetModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Snippets</h2>
+<p>Think these are pretty cool? Why not add your won right @Html.ActionLink("Here", "Add", "Snippet", new { }, htmlAttributes: null)</p>
+<hr />
+<div class="col-md-8">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <p>Uploader</p>
+            </div>
+            <div class="col-md-4">
+                <p>Points</p>
+            </div>
+            <div class="col-md-4">
+                <p>Link</p>
+            </div>
+        </div>
+
+        @{
+            foreach (var snippet in Model.Snippets)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>@snippet.Value.Name</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>@snippet.Key.Points</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            @Html.ActionLink("Details", "Detail", "Snippet", new { id = snippet.Key.ID }, htmlAttributes: null)
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

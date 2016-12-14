@@ -233,6 +233,39 @@ namespace SnippetgrabClasslibrary.Data
             }
         }
 
+        public List<Problem> GetMostRecent()
+        {
+            var getUserQueryString =
+                "select * from Problem limit 10";
+
+            var results = new List<Problem>();
+
+            try
+            {
+                using (var conn = new SqlConnection(SqlCon))
+                {
+                    using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
+                    {
+                        conn.Open();
+
+                        using (var reader = cmdGetUser.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                results.Add(CreateProblemFromReader(reader));
+                            }
+                            return results;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public List<Int32> GetTagsByProblem(int problemId)
         {
             var getTagQueryString =

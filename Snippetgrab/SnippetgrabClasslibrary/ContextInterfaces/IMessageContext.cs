@@ -14,5 +14,7 @@ namespace SnippetgrabClasslibrary.ContextInterfaces
         bool RemoveMessage(int id);
 
         List<Message> GetMessageByUser(int id);
+
+        List<Message> GetMostRecent(int userId);
     }
 }

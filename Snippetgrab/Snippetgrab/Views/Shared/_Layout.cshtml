@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Snippetgrab</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
@@ -20,16 +20,18 @@
                 @Html.ActionLink("Snippetgrab", "Home", "User", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="../Snippet/Index">Snippets</a></li>
+                </ul>
             </div>
         </div>
     </div>
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Snippetgrab</p>
+        <footer class="navbar navbar-fixed-bottom">
+            <hr />
+            <p class="text-center">&copy; @DateTime.Now.Year - Snippetgrab <span class="text-info">Made by: Max Meijer </span></p>
         </footer>
     </div>
 

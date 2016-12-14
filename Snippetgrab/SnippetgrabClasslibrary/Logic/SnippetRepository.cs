@@ -56,5 +56,10 @@ namespace SnippetgrabClasslibrary.Logic
         {
             return _context.RemoveSnippet(id);
         }
+
+        public List<Snippet> GetMostRecent()
+        {
+            return _context.GetMostRecent();
+        }
     }
 }

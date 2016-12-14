@@ -51,8 +51,9 @@ namespace SnippetgrabClasslibrary.Data
                     }
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     return false;
                 }
             }
@@ -232,6 +233,39 @@ namespace SnippetgrabClasslibrary.Data
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public List<Snippet> GetMostRecent()
+        {
+            var getUserQueryString =
+                "select * from Snippet limit 10";
+
+            var results = new List<Snippet>();
+
+            try
+            {
+                using (var conn = new SqlConnection(SqlCon))
+                {
+                    using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
+                    {
+                        conn.Open();
+
+                        using (var reader = cmdGetUser.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                results.Add(CreateSnippetFromReader(reader));
+                            }
+                            return results;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
             }
         }
 

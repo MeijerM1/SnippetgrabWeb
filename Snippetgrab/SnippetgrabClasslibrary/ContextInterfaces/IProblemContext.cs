@@ -24,5 +24,7 @@ namespace SnippetgrabClasslibrary.ContextInterfaces
         bool ChangeIsSolved(int problemId, bool isSolved);
 
         bool ChangePoint(int problemId, int increaseDecrease);
+
+        List<Problem> GetMostRecent();
     }
 }

@@ -38,7 +38,7 @@ namespace Snippetgrab.Controllers
                 User user = _userRepo.GetUserByEmail(email);
                 um.ActiveUser = user;
                 um.GetMessages();
-                Session["UserEmail"] = email;
+                Session["UserID"] = um.ActiveUser.ID;
                 return View(um);
             }
             else

@@ -96,6 +96,39 @@ namespace SnippetgrabClasslibrary.Data
             }
         }
 
+        public List<Message> GetMostRecent(int userId)
+        {
+            var getUserQueryString =
+                "SELECT TOP 10* FROM Message WHERE ReceipentID=@id";
+
+            var messages = new List<Message>();
+
+            try
+            {
+                using (var conn = new SqlConnection(SqlCon))
+                {
+                    using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
+                    {
+                        conn.Open();
+                        cmdGetUser.Parameters.AddWithValue("id", userId);
+                        using (var reader = cmdGetUser.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                messages.Add(CreateMessageFromReader(reader));
+                            }
+                            return messages;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public Message CreateMessageFromReader(SqlDataReader reader)
         {
             return new Message(
