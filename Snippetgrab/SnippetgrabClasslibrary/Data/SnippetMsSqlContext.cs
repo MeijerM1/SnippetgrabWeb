@@ -38,7 +38,7 @@ namespace SnippetgrabClasslibrary.Data
 
             using (var conn = new SqlConnection(SqlCon))
             {
-                try
+                //try
                 {
                     using (var cmd1 = new SqlCommand(QueryString, conn))
                     {
@@ -49,11 +49,13 @@ namespace SnippetgrabClasslibrary.Data
                         cmd1.Parameters.AddWithValue("authorId", snippet.AuthorID);
                         cmd1.ExecuteNonQuery();
                     }
+
+                    AddtagForSnippet(snippet.Tags, snippet.ID);
                     return true;
                 }
-                catch (Exception e)
+                //catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    //Console.WriteLine(e.Message);
                     return false;
                 }
             }
@@ -269,12 +271,12 @@ namespace SnippetgrabClasslibrary.Data
             }
         }
 
-        public List<Int32> GetTagsBySnippet(int snippetId)
+        public List<Tag> GetTagsBySnippet(int snippetId)
         {
             var getTagQueryString =
-                "SELECT ts.TagID FROM [Tag_Snippet] as [ts] WHERE ts.SnippetID = @id";
+                "SELECT * FROM [Tag_Snippet] as [ts] WHERE ts.SnippetID = @id";
 
-            var tags = new List<int>();
+            var tags = new List<Tag>();
             try
             {
                 using (var conn = new SqlConnection(SqlCon))
@@ -288,7 +290,7 @@ namespace SnippetgrabClasslibrary.Data
                         {
                             while (reader.Read())
                             {
-                                tags.Add(Convert.ToInt32(reader["TagID"]));
+                                tags.Add(CreateTagFromReader(reader));
                             }
                             return tags;
                         }
@@ -301,6 +303,55 @@ namespace SnippetgrabClasslibrary.Data
             }
         }
 
+        public bool AddtagForSnippet(List<Tag> tags, int snippetID)
+        {
+            var getLastAddedQuery = "SELECT IDENT_CURRENT('Snippet') AS 'ID'";
+
+            var QueryString =
+                "INSERT INTO [Tag_Snippet] (TagID, SnippetID) VALUES (@TagID, @SnippetID)";
+
+
+            int id = -1;
+
+            using (var conn = new SqlConnection(SqlCon))
+            {
+                
+
+                using (var cmd1 = new SqlCommand(getLastAddedQuery, conn))
+                {
+                    conn.Open();
+                    using (var reader = cmd1.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            id = Convert.ToInt32(reader["ID"]);
+                        }
+                        conn.Close();
+                    }
+                }
+
+            }
+            using (var conn = new SqlConnection(SqlCon))
+            {
+                foreach (var tag in tags)
+                {
+                    using (var cmd2 = new SqlCommand(QueryString, conn))
+                    {
+                        conn.Open();
+
+                        cmd2.Parameters.AddWithValue("TagID", tag.ID);
+                        cmd2.Parameters.AddWithValue("SnippetID", id);
+                        cmd2.ExecuteNonQuery();
+
+                        conn.Close();
+
+                    }
+                }
+            }
+            return true;
+        }
+
+
         public Snippet CreateSnippetFromReader(SqlDataReader reader)
         {
             var tags = GetTagsBySnippet(Convert.ToInt32(reader["SnippetID"]));
@@ -311,7 +362,15 @@ namespace SnippetgrabClasslibrary.Data
                 Convert.ToInt32(reader["Points"]),
                 Convert.ToBoolean(reader["IsPrivate"]),
                 Convert.ToInt32(reader["AuthorID"]),
-                tags);                
-        }            
+                tags);
+        }
+
+        public Tag CreateTagFromReader(SqlDataReader reader)
+        {
+            return new Tag(
+                Convert.ToInt32(reader["TagID"]),
+                Convert.ToString(reader["Text"])
+              );
+        }
     }
 }
