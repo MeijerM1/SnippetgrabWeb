@@ -4,20 +4,34 @@
     ViewBag.Title = "Index";
 }
 
+<script type="text/javascript">
+$(function()
+{
+    $('#link_example1').qtip(
+    {
+     content:'A simple tooltip for the link',
+     style: {name: 'dark', tip: 'topLeft'}
+    });
+});
+</script>
+
 <h2>Snippets</h2>
 <p>Think these are pretty cool? Why not add your won right @Html.ActionLink("Here", "Add", "Snippet", new { }, htmlAttributes: null)</p>
 <hr />
 <div class="col-md-8">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p>Uploader</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p>Points</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p>Link</p>
+            </div>
+            <div class="col-md-3">
+                <p>Tag</p>
             </div>
         </div>
 
@@ -25,16 +39,24 @@
             foreach (var snippet in Model.Snippets)
             {
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <p>@snippet.Value.Name</p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <p>@snippet.Key.Points</p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <p>
                             @Html.ActionLink("Details", "Detail", "Snippet", new { id = snippet.Key.ID }, htmlAttributes: null)
                         </p>
+                    </div>
+                    <div class="col-md-3">
+                        @{
+                            foreach (var tag in snippet.Key.Tags)
+                            {
+                                <p>@tag.Text</p>
+                            }
+                        }
                     </div>
                 </div>
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,7 +94,7 @@ namespace SnippetgrabClasslibrary.Data
 
             var snippets = new List<Snippet>();
 
-            try
+           // try
             {
                 using (var conn = new SqlConnection(SqlCon))
                 {
@@ -111,7 +112,7 @@ namespace SnippetgrabClasslibrary.Data
                     }
                 }
             }
-            catch (Exception)
+           // catch (Exception)
             {
 
                 return null;
@@ -274,10 +275,10 @@ namespace SnippetgrabClasslibrary.Data
         public List<Tag> GetTagsBySnippet(int snippetId)
         {
             var getTagQueryString =
-                "SELECT * FROM [Tag_Snippet] as [ts] WHERE ts.SnippetID = @id";
+                "SELECT t.TagID, t.Text FROM [Tag_Snippet] as [ts] JOIN Tag as [t] ON t.TagID = ts.TagID  WHERE ts.SnippetID = @id";
 
             var tags = new List<Tag>();
-            try
+            //try
             {
                 using (var conn = new SqlConnection(SqlCon))
                 {
@@ -297,8 +298,9 @@ namespace SnippetgrabClasslibrary.Data
                     }
                 }
             }
-            catch (Exception)
+            //catch (Exception e)
             {
+            //    Debug.WriteLine(e.Message);
                 return null;
             }
         }

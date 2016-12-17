@@ -45,6 +45,8 @@ namespace SnippetgrabClasslibrary.Models
 
         public Snippet(string code, int points, bool isPrivate, int authorId)
         {
+            Tags = new List<Tag>();
+
             Code = code;
             Points = points;
             IsPrivate = isPrivate;
