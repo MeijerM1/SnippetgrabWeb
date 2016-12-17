@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -103,12 +104,12 @@ namespace SnippetgrabClasslibrary.Data
                             }
                         }
                     }
-                    return null;
+                    return problems;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -118,7 +119,7 @@ namespace SnippetgrabClasslibrary.Data
             var getUserQueryString =
                 "SELECT p.problemID, p.Text, p.Points, p.AuthorID, p.IsSolved, p.Title FROM [Problem] as [p] WHERE p.ProblemID=@id";
 
-            var problems = new List<Problem>();
+
             try
             {
                 using (var conn = new SqlConnection(SqlCon))
@@ -131,7 +132,7 @@ namespace SnippetgrabClasslibrary.Data
                         {
                             while (reader.Read())
                             {
-                                problems.Add(CreateProblemFromReader(reader));
+                                return CreateProblemFromReader(reader);
                             }
                         }
                     }
@@ -266,12 +267,12 @@ namespace SnippetgrabClasslibrary.Data
             }
         }
 
-        public List<Int32> GetTagsByProblem(int problemId)
+        public List<Tag> GetTagsByProblem(int problemId)
         {
             var getTagQueryString =
-                "SELECT tp.TagID FROM [Tag_Problem] as [tp] WHERE tp.ProblemID = @id";
+                "SELECT t.TagID, t.Text FROM [Tag_Problem] as [ts] JOIN Tag as [t] ON t.TagID = ts.TagID  WHERE ts.ProblemID = @id";
 
-            var tags = new List<int>();
+            var tags = new List<Tag>();
             try
             {
                 using (var conn = new SqlConnection(SqlCon))
@@ -285,22 +286,71 @@ namespace SnippetgrabClasslibrary.Data
                         {
                             while (reader.Read())
                             {
-                                tags.Add(Convert.ToInt32(reader["TagID"]));
+                                tags.Add(CreateTagFromReader(reader));
                             }
                             return tags;
                         }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
 
+        public bool AddtagForSnippet(List<Tag> tags, int problemID)
+        {
+            var getLastAddedQuery = "SELECT IDENT_CURRENT('Problem') AS 'ID'";
+
+            var QueryString =
+                "INSERT INTO [Tag_Problem] (TagID, ProblemID) VALUES (@TagID, @ProblemID)";
+
+
+            int id = -1;
+
+            using (var conn = new SqlConnection(SqlCon))
+            {
+
+
+                using (var cmd1 = new SqlCommand(getLastAddedQuery, conn))
+                {
+                    conn.Open();
+                    using (var reader = cmd1.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            id = Convert.ToInt32(reader["ID"]);
+                        }
+                        conn.Close();
+                    }
+                }
+
+            }
+            using (var conn = new SqlConnection(SqlCon))
+            {
+                foreach (var tag in tags)
+                {
+                    using (var cmd2 = new SqlCommand(QueryString, conn))
+                    {
+                        conn.Open();
+
+                        cmd2.Parameters.AddWithValue("TagID", tag.ID);
+                        cmd2.Parameters.AddWithValue("ProblemID", id);
+                        cmd2.ExecuteNonQuery();
+
+                        conn.Close();
+                    }
+                }
+            }
+            return true;
+        }
+
         public Problem CreateProblemFromReader(SqlDataReader reader)
         {
-            var tags = GetTagsByProblem(Convert.ToInt32(reader["problemID"]));
+            var tags = new List<Tag>();
+            tags = GetTagsByProblem(Convert.ToInt32(reader["problemID"]));
 
             return new Problem(
                 Convert.ToInt32(reader["problemID"]),
@@ -310,6 +360,13 @@ namespace SnippetgrabClasslibrary.Data
                 Convert.ToInt32(reader["AuthorID"]),
                 tags,
                 Convert.ToBoolean(reader["IsSolved"]));
-        }            
+        }
+        public Tag CreateTagFromReader(SqlDataReader reader)
+        {
+            return new Tag(
+                Convert.ToInt32(reader["TagID"]),
+                Convert.ToString(reader["Text"])
+              );
+        }
     }
 }

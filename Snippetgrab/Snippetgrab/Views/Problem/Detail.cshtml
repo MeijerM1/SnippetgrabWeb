@@ -1,0 +1,62 @@
+﻿@model Snippetgrab.Models.ProblemModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+<div>
+    <h4>Snippet</h4>
+    <hr />
+    <dl class="dl-horizontal">       
+        <dt>
+            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item1.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProblemToDisplay.Item1.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item2.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProblemToDisplay.Item2.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item1.Points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProblemToDisplay.Item1.Points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item1.Tags)
+        </dt>
+
+        <div class="col-md-3">
+            @{
+                foreach (var tag in Model.ProblemToDisplay.Item1.Tags)
+                {
+                    //<p>@tag.Text</p>
+                    @Html.Label(@tag.Text)
+                    <br/>
+                }
+            }
+        </div>
+        
+        <dt>
+            @Html.Label("Discription")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProblemToDisplay.Item1.Text)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

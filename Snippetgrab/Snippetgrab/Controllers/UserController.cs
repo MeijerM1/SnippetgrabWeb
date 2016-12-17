@@ -47,5 +47,12 @@ namespace Snippetgrab.Controllers
             }
 
         }
+
+        public ActionResult Detail()
+        {
+            User userToDisplay = _userRepo.GetUserById((int)Session["userID"]);
+
+            return View(userToDisplay);
+        }
     }
 }

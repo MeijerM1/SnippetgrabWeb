@@ -139,11 +139,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ProblemController.cs" />
     <Compile Include="Controllers\SnippetController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProblemModel.cs" />
     <Compile Include="Models\SnippetModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +168,9 @@
     <Content Include="Views\Snippet\Index.cshtml" />
     <Content Include="Views\Snippet\Add.cshtml" />
     <Content Include="Views\Snippet\Detail.cshtml" />
+    <Content Include="Views\User\Detail.cshtml" />
+    <Content Include="Views\Problem\Index.cshtml" />
+    <Content Include="Views\Problem\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

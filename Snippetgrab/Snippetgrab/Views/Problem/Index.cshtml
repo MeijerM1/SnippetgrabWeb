@@ -1,15 +1,18 @@
-﻿@model Snippetgrab.Models.SnippetModel
+﻿@model Snippetgrab.Models.ProblemModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Snippets</h2>
-<p>Think these are pretty cool? Why not add your own right @Html.ActionLink("Here", "Add", "Snippet", new { }, htmlAttributes: null)</p>
+<h2>Problems</h2>
+@*<p>Have a problem of your own? Ask the comunity right @Html.ActionLink("Here!", "Add", "Problem", new { }, htmlAttributes: null)</p>*@
 <hr />
 <div class="col-md-8">
     <div class="container">
         <div class="row">
+            <div class="col-md-3">
+                <p>Title</p>
+            </div>
             <div class="col-md-3">
                 <p>Uploader</p>
             </div>
@@ -25,32 +28,36 @@
         </div>
 
         @{
-            foreach (var snippet in Model.Snippets)
+            foreach (var problem in Model.Problems)
             {
                 <div class="container" style="border-bottom: solid; border-color: grey; border-width: 1px">
                     <div class="row">
                         <div class="col-md-3">
-                            <p>@snippet.Value.Name</p>
+                            <p>@problem.Key.Title</p>
                         </div>
                         <div class="col-md-3">
-                            <p>@snippet.Key.Points</p>
+                            <p>@problem.Value.Name</p>
                         </div>
                         <div class="col-md-3">
-                            <p>
-                                @Html.ActionLink("Details", "Detail", "Snippet", new { id = snippet.Key.ID }, htmlAttributes: null)
-                            </p>
+                            <p>@problem.Key.Points</p>
                         </div>
+
                         <div class="col-md-3">
                             @{
-                                foreach (var tag in snippet.Key.Tags)
+                                foreach (var tag in problem.Key.Tags)
                                 {
                                     <p>@tag.Text</p>
                                 }
                             }
                         </div>
+                        <div class="col-md-3">
+                            <p>
+                                @Html.ActionLink("Details", "Detail", "Problem", new { id = problem.Key.ID }, htmlAttributes: null)
+                            </p>
+                        </div>
                     </div>
                 </div>
-                                }
+            }
         }
     </div>
 </div>

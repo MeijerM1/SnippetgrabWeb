@@ -39,7 +39,7 @@ namespace SnippetgrabClasslibrary.Data
 
             using (var conn = new SqlConnection(SqlCon))
             {
-                //try
+                try
                 {
                     using (var cmd1 = new SqlCommand(QueryString, conn))
                     {
@@ -54,9 +54,9 @@ namespace SnippetgrabClasslibrary.Data
                     AddtagForSnippet(snippet.Tags, snippet.ID);
                     return true;
                 }
-                //catch (Exception e)
+                catch (Exception e)
                 {
-                    //Console.WriteLine(e.Message);
+                    Debug.WriteLine(e.Message);
                     return false;
                 }
             }
@@ -94,7 +94,7 @@ namespace SnippetgrabClasslibrary.Data
 
             var snippets = new List<Snippet>();
 
-           // try
+            try
             {
                 using (var conn = new SqlConnection(SqlCon))
                 {
@@ -112,9 +112,9 @@ namespace SnippetgrabClasslibrary.Data
                     }
                 }
             }
-           // catch (Exception)
+            catch (Exception e)
             {
-
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -278,7 +278,7 @@ namespace SnippetgrabClasslibrary.Data
                 "SELECT t.TagID, t.Text FROM [Tag_Snippet] as [ts] JOIN Tag as [t] ON t.TagID = ts.TagID  WHERE ts.SnippetID = @id";
 
             var tags = new List<Tag>();
-            //try
+            try
             {
                 using (var conn = new SqlConnection(SqlCon))
                 {
@@ -298,9 +298,9 @@ namespace SnippetgrabClasslibrary.Data
                     }
                 }
             }
-            //catch (Exception e)
+            catch (Exception e)
             {
-            //    Debug.WriteLine(e.Message);
+               Debug.WriteLine(e.Message);
                 return null;
             }
         }

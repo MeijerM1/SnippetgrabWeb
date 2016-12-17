@@ -14,11 +14,15 @@ namespace SnippetgrabClasslibrary.Models
         public int Points { get; set; }
         public int AuthorID { get; set; }
         public bool IsSolved { get; set; }
-        public List<int> Tags { get; set; }
+        public List<Tag> Tags { get; set; }
 
-        public Problem(int id, string title, string text, int points, int authorId, List<int> tags, bool isSolved)
+        public Problem()
+        {            
+        }
+
+        public Problem(int id, string title, string text, int points, int authorId, List<Tag> tags, bool isSolved)
         {
-            Tags = new List<int>();
+            Tags = new List<Tag>();
 
             ID = id;
             Title = title;
@@ -29,9 +33,9 @@ namespace SnippetgrabClasslibrary.Models
             IsSolved = isSolved;
         }
 
-        public Problem(string title, string text, int points, int authorId, List<int> tags, bool isSolved)
+        public Problem(string title, string text, int points, int authorId, List<Tag> tags, bool isSolved)
         {
-            Tags= new List<int>();
+            Tags= new List<Tag>();
 
             Title = title;
             Text = text;

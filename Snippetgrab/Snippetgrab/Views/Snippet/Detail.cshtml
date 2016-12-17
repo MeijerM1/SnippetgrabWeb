@@ -41,7 +41,20 @@
         <dd>
             @Html.TextAreaFor(model => model.SnippetToDisplay.Item1.Code, new { rows=20, cols=80})
         </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.SnippetToDisplay.Item1.Tags)
+        </dt>
 
+        <div class="col-md-3">
+            @{
+                foreach (var tag in Model.SnippetToDisplay.Item1.Tags)
+                {
+                    //<p>@tag.Text</p>
+                    @Html.Label(@tag.Text) <br/>
+                }
+            }
+        </div>
     </dl>
 </div>
 <p>
