@@ -171,6 +171,7 @@
     <Content Include="Views\User\Detail.cshtml" />
     <Content Include="Views\Problem\Index.cshtml" />
     <Content Include="Views\Problem\Detail.cshtml" />
+    <Content Include="Views\Problem\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

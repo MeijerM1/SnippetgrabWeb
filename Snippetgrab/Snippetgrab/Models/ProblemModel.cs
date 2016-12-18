@@ -42,7 +42,7 @@ namespace Snippetgrab.Models
             ProblemToDisplay = new Tuple<Problem, User>(problem, user);
         }
 
-        public void AddSnippet(Problem problemToAdd)
+        public void AddProblem(Problem problemToAdd)
         {
             _problemRepo.AddProblem(problemToAdd);
         }

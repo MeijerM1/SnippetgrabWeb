@@ -6,56 +6,32 @@
 
 <h2>Detail</h2>
 <div>
-    <h4>Snippet</h4>
+    <h4>Problem</h4>
     <hr />
-    <dl class="dl-horizontal">       
-        <dt>
-            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item1.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProblemToDisplay.Item1.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item2.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProblemToDisplay.Item2.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item1.Points)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProblemToDisplay.Item1.Points)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProblemToDisplay.Item1.Tags)
-        </dt>
-
-        <div class="col-md-3">
+    <div class="col-md-4">
+        <div class="container">
+            <p>Posted by:</p> 
+            <p>@Model.ProblemToDisplay.Item2.Name</p>
+            <p>Points: @Model.ProblemToDisplay.Item1.Points</p>
+            <p>Tags:</p>
             @{
-                foreach (var tag in Model.ProblemToDisplay.Item1.Tags)
+                foreach (var tag in @Model.ProblemToDisplay.Item1.Tags)
                 {
-                    //<p>@tag.Text</p>
-                    @Html.Label(@tag.Text)
-                    <br/>
+                    <p>@tag.Text</p>
                 }
             }
         </div>
-        
-        <dt>
-            @Html.Label("Discription")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProblemToDisplay.Item1.Text)
-        </dd>
-    </dl>
+    </div>
+    
+    <div class="col-md-8">
+        <h3>@Model.ProblemToDisplay.Item1.Title</h3> <br />
+        <p>@Model.ProblemToDisplay.Item1.Text</p>
+        <hr />
+        <div class="container">
+            <h3>Comments</h3>
+        </div>
+    </div>
+    
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

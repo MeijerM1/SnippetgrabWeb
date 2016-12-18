@@ -18,6 +18,7 @@ namespace SnippetgrabClasslibrary.Models
 
         public Problem()
         {            
+            Tags = new List<Tag>();
         }
 
         public Problem(int id, string title, string text, int points, int authorId, List<Tag> tags, bool isSolved)
