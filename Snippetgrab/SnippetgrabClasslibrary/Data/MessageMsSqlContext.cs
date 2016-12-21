@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,6 +70,38 @@ namespace SnippetgrabClasslibrary.Data
             catch (Exception)
             {
 
+                return null;
+            }
+        }
+
+        public Message GetMessageById(int id)
+        {
+            var getUserQueryString =
+                "SELECT m.MessageID, m.Text, m.senderID, m.ReceipentID FROM [Message] as [m] WHERE m.MessageID = @id";
+
+            try
+            {
+                using (var conn = new SqlConnection(SqlCon))
+                {
+                    using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
+                    {
+                        conn.Open();
+                        cmdGetUser.Parameters.AddWithValue("id", id);
+
+                        using (var reader = cmdGetUser.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                return CreateMessageFromReader(reader);
+                            }
+                        }
+                    }
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }

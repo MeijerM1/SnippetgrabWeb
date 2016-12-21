@@ -27,5 +27,10 @@ namespace SnippetgrabClasslibrary.Models
             SenderID = senderId;
             ReceipentID = receipentId;
         }
+
+        public override string ToString()
+        {
+            return MessageText;
+        }
     }
 }

@@ -27,6 +27,11 @@ namespace SnippetgrabClasslibrary.Logic
             return _context.GetMessageByUser(id);
         }
 
+        public Message GetMessageByID(int id)
+        {
+            return _context.GetMessageById(id);
+        }
+
         public bool RemoveMessage(int id)
         {
             return _context.RemoveMessage(id);

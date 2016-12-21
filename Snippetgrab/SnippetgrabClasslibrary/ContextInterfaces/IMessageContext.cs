@@ -15,6 +15,8 @@ namespace SnippetgrabClasslibrary.ContextInterfaces
 
         List<Message> GetMessageByUser(int id);
 
+        Message GetMessageById(int id);
+
         List<Message> GetMostRecent(int userId);
     }
 }

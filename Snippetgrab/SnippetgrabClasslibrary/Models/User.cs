@@ -44,7 +44,7 @@ namespace SnippetgrabClasslibrary.Models
         /// <inheritdoc />
         public override string ToString()
         {
-            return Name + "ID: " + ID;
+            return Name;
         }
     }
 }
