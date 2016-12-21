@@ -33,7 +33,7 @@ namespace SnippetgrabClasslibrary.Data
         public bool AddProblem(Problem problem)
         {
             var QueryString =
-                "INSERT INTO [problem] (Text, Points, AuthorID, IsSolved, Title) VALUES (@text, @points, @auhtorId, @isSolved, @title)";
+                "INSERT INTO [problem] (Text, Points, AuthorID, IsSolved, Title) VALUES (@text, @points, @authorId, @isSolved, @title)";
 
             using (var conn = new SqlConnection(SqlCon))
             {
@@ -49,10 +49,13 @@ namespace SnippetgrabClasslibrary.Data
                         cmd1.Parameters.AddWithValue("title", problem.Title);
                         cmd1.ExecuteNonQuery();
                     }
+
+                    AddtagForProblem(problem.Tags);
                     return true;
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
+                    Debug.WriteLine(exception.Message);
                     return false;
                 }
             }
@@ -300,7 +303,7 @@ namespace SnippetgrabClasslibrary.Data
             }
         }
 
-        public bool AddtagForSnippet(List<Tag> tags, int problemID)
+        public bool AddtagForProblem(List<Tag> tags)
         {
             var getLastAddedQuery = "SELECT IDENT_CURRENT('Problem') AS 'ID'";
 

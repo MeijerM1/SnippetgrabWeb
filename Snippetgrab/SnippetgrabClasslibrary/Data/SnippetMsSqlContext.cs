@@ -51,7 +51,7 @@ namespace SnippetgrabClasslibrary.Data
                         cmd1.ExecuteNonQuery();
                     }
 
-                    AddtagForSnippet(snippet.Tags, snippet.ID);
+                    AddtagForSnippet(snippet.Tags);
                     return true;
                 }
                 catch (Exception e)
@@ -305,7 +305,7 @@ namespace SnippetgrabClasslibrary.Data
             }
         }
 
-        public bool AddtagForSnippet(List<Tag> tags, int snippetID)
+        public bool AddtagForSnippet(List<Tag> tags)
         {
             var getLastAddedQuery = "SELECT IDENT_CURRENT('Snippet') AS 'ID'";
 
