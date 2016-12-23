@@ -154,10 +154,22 @@ namespace TSqlDemo
                 }
             }
 
+            lbUser.Items.Clear();
+
+            List<User> users = new List<User>();
+            users = GetOffenders();
+
+            foreach (var user in users)
+            {
+                lbUser.Items.Add(user);
+            }
+
             lbMessage.Items.Clear();
 
-            var user = (User) lbUser.SelectedItem;
-            var messages = GetLastMessages(user.ID, 3);
+            if (lbUser.SelectedIndex < 0) return;
+
+            var sUser = (User) lbUser.SelectedItem;
+            var messages = GetLastMessages(sUser.ID, 3);
             foreach (var message in messages)
             {
                 lbMessage.Items.Add(message);
