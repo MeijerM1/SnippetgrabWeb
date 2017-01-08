@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnippetgrabClasslibrary", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippetgrab", "Snippetgrab\Snippetgrab.csproj", "{F5434F82-08B9-4986-B454-2321FB9B59F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSqlDemo", "TSqlDemo\TSqlDemo.csproj", "{5890B7E8-D6E4-48FB-B024-3CA2C5CF532B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserUnitTest", "UserUnitTest\UserUnitTest.csproj", "{5E926706-6754-4FEE-BB60-417D8EE47EA3}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{F5434F82-08B9-4986-B454-2321FB9B59F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5434F82-08B9-4986-B454-2321FB9B59F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5434F82-08B9-4986-B454-2321FB9B59F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5890B7E8-D6E4-48FB-B024-3CA2C5CF532B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5890B7E8-D6E4-48FB-B024-3CA2C5CF532B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5890B7E8-D6E4-48FB-B024-3CA2C5CF532B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5890B7E8-D6E4-48FB-B024-3CA2C5CF532B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E926706-6754-4FEE-BB60-417D8EE47EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E926706-6754-4FEE-BB60-417D8EE47EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E926706-6754-4FEE-BB60-417D8EE47EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
