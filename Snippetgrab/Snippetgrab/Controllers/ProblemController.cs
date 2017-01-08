@@ -13,6 +13,7 @@ namespace Snippetgrab.Controllers
     public class ProblemController : Controller
     {
         TagRepository _tagRepo = new TagRepository(new TagMsSqlContext());
+        CommentRepository _commentRepo = new CommentRepository(new CommentMsSqlContext());
 
         // GET: Problem
         public ActionResult Index()
@@ -61,6 +62,17 @@ namespace Snippetgrab.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+
+        [HttpPost]
+        public ActionResult Detail(int ProblemId, string commentText)
+        {
+            var userId = (int)Session["UserId"];
+            Comment newComment = new Comment(commentText, 0, userId, ProblemId);
+            _commentRepo.AddComment(newComment);
+            ProblemModel pm = new ProblemModel();
+            pm.Getproblem(ProblemId);
+            return View(pm);
         }
     }
 }

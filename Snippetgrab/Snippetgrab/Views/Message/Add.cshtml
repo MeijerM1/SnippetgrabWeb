@@ -1,0 +1,35 @@
+﻿@model Snippetgrab.Models.UserModel
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Message</h4>
+        <hr />
+        @Html.Label("Message: ")
+        <textarea id="TextArea" name="MessageText" rows="15" cols="40"></textarea>
+        <br/>
+        @Html.Label("Receipent: ")
+        <select id="Receipentselect" name="Receipent">
+            @{
+                foreach (var user in Model.Users)
+                {
+                    <option>@user.Email</option>
+                }
+            }
+        </select>
+        <br/>
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -41,7 +41,6 @@ namespace SnippetgrabClasslibrary.Models
             Tags = tags;
         }
 
-        /// <inheritdoc />
         public override string ToString()
         {
             return Name;

@@ -42,5 +42,14 @@ namespace SnippetgrabClasslibrary.Models
             AuthorID = authorId;
             ProblemID = problemId;
         }
+
+        public Comment(string text, int points, int authorId, int problemId)
+        {
+            Text = text;
+            Points = points;
+            AuthorID = authorId;
+            ProblemID = problemId;
+            ReplyToID = -1;
+        }
     }
 }

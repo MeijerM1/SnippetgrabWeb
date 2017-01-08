@@ -1,0 +1,24 @@
+﻿@model  Snippetgrab.Models.UserModel
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Message</h2>
+<div>
+    <div class="col-md-4">
+        <div class="container">
+            <p>Send by:</p>
+            <p>@Model.MessageToDisplay.Item2.Name</p>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <p>@Model.MessageToDisplay.Item1.MessageText</p>
+        <hr />
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

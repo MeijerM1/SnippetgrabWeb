@@ -16,18 +16,19 @@ namespace SnippetgrabClasslibrary.Data
 
         public bool AddComment(Comment comment)
         {
-            var QueryString =
-                "INSERT INTO [Comment] (Text, ReplyToID, AuthorID, ProblemID, Points) VALUES (@text, @replyToId, @authorId, @problemId, @points)";
 
-            using (var conn = new SqlConnection(SqlCon))
+            if (comment.ReplyToID == -1)
             {
-                try
+                var QueryString =
+                        "INSERT INTO [Comment] (Text, AuthorID, ProblemID, Points) VALUES (@text, @authorId, @problemId, @points)";
+
+                using (var conn = new SqlConnection(SqlCon))
                 {
+
                     using (var cmd1 = new SqlCommand(QueryString, conn))
                     {
                         conn.Open();
                         cmd1.Parameters.AddWithValue("text", comment.Text);
-                        cmd1.Parameters.AddWithValue("replyToId", comment.ReplyToID);
                         cmd1.Parameters.AddWithValue("authorId", comment.AuthorID);
                         cmd1.Parameters.AddWithValue("problemId", comment.ProblemID);
                         cmd1.Parameters.AddWithValue("points", comment.Points);
@@ -35,9 +36,33 @@ namespace SnippetgrabClasslibrary.Data
                     }
                     return true;
                 }
-                catch (Exception)
+
+            }
+            else
+            {
+                var QueryString2 =
+                    "INSERT INTO [Comment] (Text, ReplyToID, AuthorID, ProblemID, Points) VALUES (@text, @replyToId, @authorId, @problemId, @points)";
+
+                using (var conn = new SqlConnection(SqlCon))
                 {
-                    return false;
+                    // try
+                    {
+                        using (var cmd1 = new SqlCommand(QueryString2, conn))
+                        {
+                            conn.Open();
+                            cmd1.Parameters.AddWithValue("text", comment.Text);
+                            cmd1.Parameters.AddWithValue("replyToId", comment.ReplyToID);
+                            cmd1.Parameters.AddWithValue("authorId", comment.AuthorID);
+                            cmd1.Parameters.AddWithValue("problemId", comment.ProblemID);
+                            cmd1.Parameters.AddWithValue("points", comment.Points);
+                            cmd1.ExecuteNonQuery();
+                        }
+                        return true;
+                    }
+                    //catch (Exception)
+                    {
+                        return false;
+                    }
                 }
             }
         }
@@ -124,11 +149,11 @@ namespace SnippetgrabClasslibrary.Data
         public List<Comment> GetCommentByProblem(int problemId)
         {
             var getUserQueryString =
-                "SELECT c.CommentID, c.Text, c.ReplyToID, c.AuthorID, c.ProblemID, c.Points FROM [Comment] as [c] WHERE c.ProblemID=@problemId";
+                "SELECT c.CommentID, c.Text, c.ReplyToID, c.Points, c.AuthorID, c.ProblemID FROM [Comment] as [c] WHERE c.ProblemID=@problemId";
 
             var comments = new List<Comment>();
 
-            try
+            //try
             {
                 using (var conn = new SqlConnection(SqlCon))
                 {
@@ -147,7 +172,7 @@ namespace SnippetgrabClasslibrary.Data
                     }
                 }
             }
-            catch (Exception)
+            //catch (Exception)
             {
 
                 return null;
@@ -253,19 +278,21 @@ namespace SnippetgrabClasslibrary.Data
                     Convert.ToInt32(reader["CommentID"]),
                     Convert.ToString(reader["Text"]),
                     Convert.ToInt32(reader["ReplyToID"]),
-                    Convert.ToInt32(reader["AuhorID"]),
+                    Convert.ToInt32(reader["AuthorID"]),
                     Convert.ToInt32(reader["ProblemID"]),
                     Convert.ToInt32(reader["Points"]));
             }
-            catch (NullReferenceException)
+            catch (InvalidCastException)
             {
                 return new Comment(
                     Convert.ToInt32(reader["CommentID"]),
                     Convert.ToString(reader["Text"]),
-                    Convert.ToInt32(reader["AuhorID"]),
-                    Convert.ToInt32(reader["ProblemID"]),
-                    Convert.ToInt32(reader["Points"]));
+                    Convert.ToInt32(reader["Points"]),
+                    Convert.ToInt32(reader["AuthorID"]),
+                    Convert.ToInt32(reader["ProblemID"]))
+                ;
+
             }
-        }            
+        }
     }
 }

@@ -4,76 +4,12 @@
 
 @{
     ViewBag.Title = "Welcome to Snippetgrab";
+    // TODO Cretae nice home view
 }
 
-<h2>Users</h2>
-
-
-<div class="col-md-6">
-    <div class="container">
-        <div class="row">
-
-            <p class="center-block"> Gebruikers</p>
-            <div class="row">
-                <div class="col-lg-6">
-                    <p>Naam</p>
-                </div>
-                <div class="col-lg-6">
-                    <p>Email</p>
-                </div>
-            </div>
-
-            @{
-                foreach (var User in Model.Users)
-                {
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>@User.Name</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>@User.Email</p>
-                        </div>
-                    </div>
-                }
-            }
-
-        </div>
-    </div>
-</div>
-
-<div class="col-md-6">
-    <div class="container" style="border-style: solid;">
-        <div class="row">
-
-            <p> Messages</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Text</p>
-                </div>
-                <div class="col-md-6">
-                    <p>Sender</p>
-                </div>
-            </div>
-            @{
-                foreach (var message in Model.MessagesButBetter)
-                {
-                    <div class="row">
-                        <div class="col-md-6">
-                            @{
-                                string messageToSplit = message.Key.MessageText;
-                                int index = messageToSplit.IndexOf(":");
-                                string link = messageToSplit.Substring(index + 1);
-                                string text = messageToSplit.Substring(0, index + 1);
-                            }
-                            <p>@text <a href="@link">Here</a></p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>@message.Value.Name</p>
-                        </div>
-                    </div>
-                }
-
-            }
-        </div>
-    </div>
-</div>          
+<h2>Welcome to snippetgrab</h2>
+<br/>
+<p>You can find all problem related stuff @Html.ActionLink("here!", "Index", "Problem", new { }, htmlAttributes: null)</p>
+<p>You can find all snippet related stuff @Html.ActionLink("here!", "Index", "Snippet", new { }, htmlAttributes: null)</p>
+<br/>
+<p>Of course you can also use the navbar at the top to navigate.</p>

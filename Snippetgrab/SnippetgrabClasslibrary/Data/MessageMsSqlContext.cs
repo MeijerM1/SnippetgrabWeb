@@ -17,7 +17,7 @@ namespace SnippetgrabClasslibrary.Data
         public bool AddMessage(Message message)
         {
             var QueryString =
-                "INSERT INTO [Message] (Text, SenderID, ReceipentID) VALUES (@text, @senderId, @receipentId)";
+                "INSERT INTO [Message] (Text, SenderID, ReceipentID, IsApproved) VALUES (@text, @senderId, @receipentId, @IsApproved)";
 
             using (var conn = new SqlConnection(SqlCon))
             {
@@ -29,6 +29,7 @@ namespace SnippetgrabClasslibrary.Data
                         cmd1.Parameters.AddWithValue("text", message.MessageText);
                         cmd1.Parameters.AddWithValue("senderId", message.SenderID);
                         cmd1.Parameters.AddWithValue("receipentId", message.ReceipentID);
+                        cmd1.Parameters.AddWithValue("IsApproved", 0);
                         cmd1.ExecuteNonQuery();
                     }
                     return true;

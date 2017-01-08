@@ -240,7 +240,7 @@ namespace SnippetgrabClasslibrary.Data
         public List<Problem> GetMostRecent()
         {
             var getUserQueryString =
-                "select * from Problem limit 10";
+                "select TOP 10 * from Problem";
 
             var results = new List<Problem>();
 

@@ -1,0 +1,45 @@
+﻿@model Snippetgrab.Models.UserModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Messages</h2>
+<p>Send a new message @Html.ActionLink("here!", "Add", "Message", new { }, htmlAttributes: null)</p>
+<div class="col-md-10">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <p>Message</p>
+            </div>
+            <div class="col-md-5">
+                <p>Sender</p>
+            </div>
+            <div class="col-md-1">
+                <p>Reply</p>
+            </div>
+        </div>
+
+        @{
+            foreach (var message in Model.MessagesButBetter)
+            {
+                <div class="container" style="border-bottom: solid; border-color: grey; border-width: 1px">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <p>@message.Key.MessageText</p>
+                        </div>
+                        <div class="col-md-5">
+                            <p>@message.Value.Name</p>
+                        </div>
+                        <div class="col-md-1">
+                            <p>
+                                @Html.ActionLink("Reply", "Detail", "Message", new {MessageId = message.Key.ID}, htmlAttributes: null)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+</div>
