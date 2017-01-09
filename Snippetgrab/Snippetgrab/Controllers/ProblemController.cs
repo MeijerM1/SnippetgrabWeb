@@ -18,6 +18,11 @@ namespace Snippetgrab.Controllers
         // GET: Problem
         public ActionResult Index()
         {
+            if ((int)Session["UserID"] == -1)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             ProblemModel pm = new ProblemModel();
             return View(pm);
         }
@@ -25,6 +30,11 @@ namespace Snippetgrab.Controllers
         [HttpGet]
         public ActionResult Detail(int id)
         {
+            if ((int)Session["UserID"] == -1)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             ProblemModel pm = new ProblemModel();
             pm.Getproblem(id);
             return View(pm);
@@ -32,6 +42,11 @@ namespace Snippetgrab.Controllers
 
         public ActionResult Add()
         {
+            if ((int)Session["UserID"] == -1)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             Problem p = new Problem();
             p.Tags = _tagRepo.GetAll();
             return View(p);

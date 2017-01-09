@@ -21,10 +21,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="../Snippet/Index">Snippets</a></li>
-                    <li><a href="../Problem/Index">Problems</a></li>
-                    <li><a href="../Message/Index">Messages</a></li>
-                    <li style="position: absolute; right: 20px"><a href="../User/Detail">Account</a></li>
+                    <li>@Html.ActionLink("Snippets", "Index", "Snippet", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Problems", "Index", "Problem", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Messages", "Index", "Message", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    @{
+                        if ((int)Session["UserId"] != -1)
+                        {
+                            <li style="position: absolute; right: 110px">@Html.ActionLink("Account", "Detail", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+                            <li style="position: absolute; right: 20px">@Html.ActionLink("Uitloggen", "LogIn", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -32,8 +38,12 @@
 
     <div class="container body-content">
         @RenderBody()
+        <br />
+        <br />
+        <br />
         <footer class="navbar navbar-fixed-bottom">
-            <hr />
+
+            <hr/>
             <p class="text-center">&copy; @DateTime.Now.Year - Snippetgrab <span class="text-info">Made by: Max Meijer </span></p>
         </footer>
     </div>

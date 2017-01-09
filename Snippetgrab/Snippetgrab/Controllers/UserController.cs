@@ -19,12 +19,18 @@ namespace Snippetgrab.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if ((int)Session["UserID"] == -1)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             return View();
         }
 
 
         public ActionResult LogIn()
         {
+            Session["UserID"] = -1;
             UserModel um = new UserModel();
             return View(um);
         }
@@ -37,12 +43,12 @@ namespace Snippetgrab.Controllers
             {
                 User user = _userRepo.GetUserByEmail(email);
                 um.ActiveUser = user;
-                um.GetMessages();
                 Session["UserID"] = um.ActiveUser.ID;
                 return View(um);
             }
             else
             {
+                ViewBag.LoginError = "You are not logged in";
                 return LogIn();   
             }
 
@@ -50,6 +56,11 @@ namespace Snippetgrab.Controllers
 
         public ActionResult Detail()
         {
+            if ((int)Session["UserID"] == -1)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             User userToDisplay = _userRepo.GetUserById((int)Session["userID"]);
 
             return View(userToDisplay);

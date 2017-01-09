@@ -47,8 +47,9 @@
             {
                 <h3>Add Comment</h3>
                 <input id="Hidden1" name="ProblemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID"/>
-                <textarea id="CommentTextArea" name="commentText" rows="4" cols="20"></textarea><br />
-                <input id="PostNewComment" type="submit" value="submit"/>
+                <textarea id="comment" name="commentText" rows="6" cols="40" class="form-control"></textarea><br />
+                <br/>
+                <input id="PostNewComment" type="submit" value="Post comment" class="btn btn-primary"/>
             }
         </div>
     </div>

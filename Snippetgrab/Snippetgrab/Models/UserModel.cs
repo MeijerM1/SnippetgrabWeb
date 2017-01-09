@@ -25,10 +25,6 @@ namespace Snippetgrab.Models
 
         public UserModel()
         {
-            Users = new List<User>();
-            Users = _userRepo.GetAll();
-            GetRecentProblems();
-            GetRecentSnippets();
         }
 
         public void GetMessages()
@@ -54,6 +50,12 @@ namespace Snippetgrab.Models
         public void SetActiveUser(int id)
         {
             ActiveUser = _userRepo.GetUserById(id);
+        }
+
+        public void GetAllsUser()
+        {
+            Users = new List<User>();
+            Users = _userRepo.GetAll();
         }
 
         public void GetRecentProblems()
