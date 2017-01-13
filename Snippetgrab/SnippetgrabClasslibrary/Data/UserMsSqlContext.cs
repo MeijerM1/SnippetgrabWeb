@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using SnippetgrabClasslibrary.ContextInterfaces;
 using SnippetgrabClasslibrary.Models;
 
@@ -12,11 +13,11 @@ namespace SnippetgrabClasslibrary.Data
 {
     public class UserMsSqlContext : IUserContext
     {
-        private const string SqlCon = @"Data Source=192.168.19.152,1433\\MSSQLSERVER; Network Library = DBMSSOCN; Initial Catalog = dbi356615; User ID=dbuser;Password=Wachtwoord1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private readonly string _sqlCon = WebConfigurationManager.ConnectionStrings["ConnStringDbAzure"].ConnectionString;
 
         public bool CheckPassword(string email, string password)
         {
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 const string query = "SELECT Salt, HashedPassword FROM [User] WHERE Email = @email";
                 using (var command = new SqlCommand(query, conn))
@@ -44,7 +45,7 @@ namespace SnippetgrabClasslibrary.Data
             var QueryString =
                 "INSERT INTO [User] (Name, JoinDate, Reputation, Email, IsAdmin, Salt, HashedPassword) VALUES (@name, @joinDate, @reputation, @email, @isAdmin, @salt, @password)";
 
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 var salt = CreateSalt();
                 var hashedPassword = GenerateSha256Hash(password, salt);
@@ -80,7 +81,7 @@ namespace SnippetgrabClasslibrary.Data
             var users = new List<User>();
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -111,7 +112,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -144,7 +145,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -176,7 +177,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmd = new SqlCommand(QueryString, conn))
                     {
@@ -201,7 +202,7 @@ namespace SnippetgrabClasslibrary.Data
             var hashedPassword = GenerateSha256Hash(password, salt);
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmd = new SqlCommand(QueryString, conn))
                     {
@@ -226,7 +227,7 @@ namespace SnippetgrabClasslibrary.Data
             var QueryString =
                 "INSERT INTO [Tag_User] (TagID, UserID) VALUES (@tagId, @userId)";
 
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 try
                 {
@@ -252,7 +253,7 @@ namespace SnippetgrabClasslibrary.Data
             var QueryString =
                 "DELETE * FROM [Tag_User] WHERE TagID=@tagId, UserID=@userId";
 
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 try
                 {
@@ -281,7 +282,7 @@ namespace SnippetgrabClasslibrary.Data
             var tags = new List<int>();
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
 
                     using (var cmdTag = new SqlCommand(getTagQueryString, conn))

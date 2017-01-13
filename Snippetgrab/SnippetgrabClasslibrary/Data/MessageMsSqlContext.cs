@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using SnippetgrabClasslibrary.ContextInterfaces;
 using SnippetgrabClasslibrary.Models;
 
@@ -12,14 +13,14 @@ namespace SnippetgrabClasslibrary.Data
 {
     public class MessageMsSqlContext : IMessageContext
     {
-        private const string SqlCon = @"Data Source=192.168.19.152,1433\\MSSQLSERVER; Network Library = DBMSSOCN; Initial Catalog = dbi356615; User ID=dbuser;Password=Wachtwoord1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private readonly string _sqlCon = WebConfigurationManager.ConnectionStrings["ConnStringDbAzure"].ConnectionString;
 
         public bool AddMessage(Message message)
         {
             var QueryString =
                 "INSERT INTO [Message] (Text, SenderID, ReceipentID, IsApproved) VALUES (@text, @senderId, @receipentId, @IsApproved)";
 
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 try
                 {
@@ -50,7 +51,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -82,7 +83,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -113,7 +114,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmd = new SqlCommand(QueryString, conn))
                     {
@@ -139,7 +140,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {

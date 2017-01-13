@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using SnippetgrabClasslibrary.ContextInterfaces;
 using SnippetgrabClasslibrary.Models;
+using System.Web.Configuration;
 
 namespace SnippetgrabClasslibrary.Data
 {
     public class CommentMsSqlContext : ICommentContext
     {
-        private const string SqlCon = @"Data Source=192.168.19.152,1433\\MSSQLSERVER; Network Library = DBMSSOCN; Initial Catalog = dbi356615; User ID=dbuser;Password=Wachtwoord1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private readonly string _sqlCon = WebConfigurationManager.ConnectionStrings["ConnStringDbAzure"].ConnectionString;
 
         public bool AddComment(Comment comment)
         {
@@ -22,7 +23,7 @@ namespace SnippetgrabClasslibrary.Data
                 var QueryString =
                         "INSERT INTO [Comment] (Text, AuthorID, ProblemID, Points) VALUES (@text, @authorId, @problemId, @points)";
 
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
 
                     using (var cmd1 = new SqlCommand(QueryString, conn))
@@ -43,7 +44,7 @@ namespace SnippetgrabClasslibrary.Data
                 var QueryString2 =
                     "INSERT INTO [Comment] (Text, ReplyToID, AuthorID, ProblemID, Points) VALUES (@text, @replyToId, @authorId, @problemId, @points)";
 
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     // try
                     {
@@ -69,7 +70,7 @@ namespace SnippetgrabClasslibrary.Data
 
         public bool ChangePoint(int commentId, int increaseDecrease)
         {
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             using (var command = new SqlCommand("dbo.ChangePoint", conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -91,7 +92,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -122,7 +123,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -155,7 +156,7 @@ namespace SnippetgrabClasslibrary.Data
 
             //try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -188,7 +189,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -221,7 +222,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -251,7 +252,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmd = new SqlCommand(QueryString, conn))
                     {

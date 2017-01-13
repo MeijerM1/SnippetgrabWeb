@@ -1,7 +1,7 @@
 ﻿@model Snippetgrab.Models.ProblemModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Problems";
     // TODO Add drop down for tags to save space
     // TODO Upvote and downvote button
 }
@@ -12,20 +12,20 @@
 <div class="col-md-10">
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <p>Title</p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <p>Uploader</p>
             </div>
             <div class="col-md-2">
                 <p>Points</p>
             </div>
             <div class="col-md-2">
-                <p>Tag</p>
+                <p>Link</p>
             </div>
             <div class="col-md-2">
-                <p>Link</p>
+                <p>Tag</p>
             </div>
         </div>
 
@@ -34,28 +34,34 @@
             {
                 <div class="container" style="border-bottom: solid; border-color: grey; border-width: 1px">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <p>@problem.Key.Title</p>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <p>@problem.Value.Name</p>
                         </div>
                         <div class="col-md-2">
                             <p>@problem.Key.Points</p>
                         </div>
                         <div class="col-md-2">
-                            @{
-                                foreach (var tag in problem.Key.Tags)
-                                {
-                                    <p>@tag.Text</p>
-                                }
-                            }
-                        </div>
-                        <div class="col-md-3">
                             <p>
                                 @Html.ActionLink("Details", "Detail", "Problem", new { id = problem.Key.ID }, htmlAttributes: null)
                             </p>
                         </div>
+                        <a onclick="seeTags(@problem.Key.ID);" href="#">Show tags</a>
+                            <div class="col-md-2" id="tags/@problem.Key.ID" hidden>
+                                @{
+                                    if (@problem.Key.Tags.Count == 0)
+                                    {
+                                        <p>No tags to show</p>
+                                    }
+                                    foreach (var tag in problem.Key.Tags)
+                                    {
+                                        <p>@tag.Text</p>
+                                    }
+                                }
+                        </div>
+
                     </div>
                 </div>
             }

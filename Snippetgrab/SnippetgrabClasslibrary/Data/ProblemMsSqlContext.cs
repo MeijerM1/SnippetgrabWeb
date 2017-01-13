@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using SnippetgrabClasslibrary.ContextInterfaces;
 using SnippetgrabClasslibrary.Models;
 
@@ -13,11 +14,11 @@ namespace SnippetgrabClasslibrary.Data
 {
     public class ProblemMsSqlContext : IProblemContext
     {
-        private const string SqlCon = @"Data Source=192.168.19.152,1433\\MSSQLSERVER; Network Library = DBMSSOCN; Initial Catalog = dbi356615; User ID=dbuser;Password=Wachtwoord1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private readonly string _sqlCon = WebConfigurationManager.ConnectionStrings["ConnStringDbAzure"].ConnectionString;
 
         public bool ChangePoint(int problemId, int increaseDecrease)
         {
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             using (var command = new SqlCommand("dbo.ChangePoint", conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -35,7 +36,7 @@ namespace SnippetgrabClasslibrary.Data
             var QueryString =
                 "INSERT INTO [problem] (Text, Points, AuthorID, IsSolved, Title) VALUES (@text, @points, @authorId, @isSolved, @title)";
 
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 try
                 {
@@ -67,7 +68,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmd = new SqlCommand(QueryString, conn))
                     {
@@ -94,7 +95,7 @@ namespace SnippetgrabClasslibrary.Data
             var problems = new List<Problem>();
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -125,7 +126,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -158,7 +159,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -190,7 +191,7 @@ namespace SnippetgrabClasslibrary.Data
             var problems = new List<Problem>();
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -220,7 +221,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmd = new SqlCommand(QueryString, conn))
                     {
@@ -246,7 +247,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetUser = new SqlCommand(getUserQueryString, conn))
                     {
@@ -278,7 +279,7 @@ namespace SnippetgrabClasslibrary.Data
             var tags = new List<Tag>();
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
 
                     using (var cmdTag = new SqlCommand(getTagQueryString, conn))
@@ -313,7 +314,7 @@ namespace SnippetgrabClasslibrary.Data
 
             int id = -1;
 
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
 
 
@@ -331,7 +332,7 @@ namespace SnippetgrabClasslibrary.Data
                 }
 
             }
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 foreach (var tag in tags)
                 {

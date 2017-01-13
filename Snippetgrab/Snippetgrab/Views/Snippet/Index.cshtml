@@ -1,7 +1,8 @@
-﻿@model Snippetgrab.Models.SnippetModel
+﻿@using System.Web.Services.Description
+@model Snippetgrab.Models.SnippetModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Snippets";
 }
 
 <h2>Snippets</h2>
@@ -40,17 +41,22 @@
                                 @Html.ActionLink("Details", "Detail", "Snippet", new { id = snippet.Key.ID }, htmlAttributes: null)
                             </p>
                         </div>
-                        <div class="col-md-3">
-                            @{
-                                foreach (var tag in snippet.Key.Tags)
-                                {
-                                    <p>@tag.Text</p>
+                        <a onclick="seeTags(@snippet.Key.ID);" href="#">Show tags</a>
+                            <div class="col-md-3" id="tags/@snippet.Key.ID" hidden>
+                                @{
+                                    if (@snippet.Key.Tags.Count == 0)
+                                    {
+                                        <p>No tags to show</p>
+                                    }
+                                    foreach (var tag in snippet.Key.Tags)
+                                    {
+                                        <p>@tag.Text</p>
+                                    }
                                 }
-                            }
+                            </div>
                         </div>
-                    </div>
                 </div>
-                                }
+           }
         }
     </div>
 </div>

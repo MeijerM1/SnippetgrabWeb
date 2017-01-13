@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using SnippetgrabClasslibrary.ContextInterfaces;
 using SnippetgrabClasslibrary.Models;
 
@@ -11,14 +12,14 @@ namespace SnippetgrabClasslibrary.Data
 {
     public class TagMsSqlContext : ITagContext
     {
-        private const string SqlCon = @"Data Source=192.168.19.152,1433\\MSSQLSERVER; Network Library = DBMSSOCN; Initial Catalog = dbi356615; User ID=dbuser;Password=Wachtwoord1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private readonly string _sqlCon = WebConfigurationManager.ConnectionStrings["ConnStringDbAzure"].ConnectionString;
 
         public bool AddTag(Tag tag)
         {
             var QueryString =
                 "INSERT INTO [Tag] (Text) VALUES (@text)";
 
-            using (var conn = new SqlConnection(SqlCon))
+            using (var conn = new SqlConnection(_sqlCon))
             {
                 try
                 {
@@ -46,7 +47,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetTag = new SqlCommand(getTagQueryString, conn))
                     {
@@ -77,7 +78,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetTag = new SqlCommand(getTagQueryString, conn))
                     {
@@ -109,7 +110,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmdGetTag = new SqlCommand(getTagQueryString, conn))
                     {
@@ -140,7 +141,7 @@ namespace SnippetgrabClasslibrary.Data
 
             try
             {
-                using (var conn = new SqlConnection(SqlCon))
+                using (var conn = new SqlConnection(_sqlCon))
                 {
                     using (var cmd = new SqlCommand(QueryString, conn))
                     {
