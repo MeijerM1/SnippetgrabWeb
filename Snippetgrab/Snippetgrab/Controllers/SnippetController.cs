@@ -13,7 +13,8 @@ namespace Snippetgrab.Controllers
     
     public class SnippetController : Controller
     {
-        TagRepository _tagRepo = new TagRepository(new TagMsSqlContext());
+        private readonly TagRepository _tagRepo = new TagRepository(new TagMsSqlContext());
+        private readonly SnippetRepository _snippetRepo = new SnippetRepository(new SnippetMsSqlContext());
 
         [HttpGet]
         public ActionResult Index()
@@ -77,6 +78,25 @@ namespace Snippetgrab.Controllers
             SnippetModel sm = new SnippetModel();
             sm.GetSnippet(id);
             return View(sm);
-        }            
+        }
+
+        [HttpPost]
+        public ActionResult ChangePoint(int snippetId, string point)
+        {
+            switch (point)
+            {
+                case "+":
+                    _snippetRepo.ChangePoint(snippetId, 1);
+                    break;
+                case "-":
+                    _snippetRepo.ChangePoint(snippetId, 0);
+                    break;
+                default:
+                    return RedirectToAction("Detail", new { id = snippetId });
+                    break;
+            }
+
+            return RedirectToAction("Detail", new { id = snippetId });
+        }
     }
 }

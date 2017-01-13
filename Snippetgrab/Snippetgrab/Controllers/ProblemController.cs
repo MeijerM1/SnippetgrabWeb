@@ -12,8 +12,9 @@ namespace Snippetgrab.Controllers
 {
     public class ProblemController : Controller
     {
-        TagRepository _tagRepo = new TagRepository(new TagMsSqlContext());
-        CommentRepository _commentRepo = new CommentRepository(new CommentMsSqlContext());
+        private readonly TagRepository _tagRepo = new TagRepository(new TagMsSqlContext());
+        private readonly CommentRepository _commentRepo = new CommentRepository(new CommentMsSqlContext());
+        private readonly ProblemRepository _problemRepository = new ProblemRepository(new ProblemMsSqlContext());
 
         // GET: Problem
         public ActionResult Index()
@@ -80,14 +81,33 @@ namespace Snippetgrab.Controllers
         }
 
         [HttpPost]
-        public ActionResult Detail(int ProblemId, string commentText)
+        public ActionResult PostComment(int problemId, string commentText)
         {
             var userId = (int)Session["UserId"];
-            Comment newComment = new Comment(commentText, 0, userId, ProblemId);
+            Comment newComment = new Comment(commentText, 0, userId, problemId);
             _commentRepo.AddComment(newComment);
             ProblemModel pm = new ProblemModel();
-            pm.Getproblem(ProblemId);
-            return View(pm);
+            pm.Getproblem(problemId);
+            return RedirectToAction("Detail", new { id = problemId });
+        }
+
+        [HttpPost]
+        public ActionResult ChangePoint(int problemId, string point)
+        {
+            switch (point)
+            {
+                case "+":
+                    _problemRepository.ChangePoint(problemId, 1);
+                    break;
+                case "-":
+                    _problemRepository.ChangePoint(problemId, 0);
+                    break;
+                default:
+                    return RedirectToAction("Detail", new { id = problemId });
+                    break;
+            }
+            
+            return RedirectToAction("Detail", new { id = problemId });
         }
     }
 }

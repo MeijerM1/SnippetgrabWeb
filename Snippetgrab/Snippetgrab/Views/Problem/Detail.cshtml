@@ -12,7 +12,15 @@
         <div class="container">
             <p>Posted by:</p> 
             <p>@Model.ProblemToDisplay.Item2.Name</p>
-            <p>Points: @Model.ProblemToDisplay.Item1.Points</p>
+            @using (Html.BeginForm("ChangePoint", "Problem", FormMethod.Post))
+            {
+                <div>      
+                    <input id="Hidden1" name="problemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />              
+                    <input type="submit" value="+" name="point" onclick="disable" class="btn btn-default btn-sm"/>
+                    <p>Points: @Model.ProblemToDisplay.Item1.Points</p>
+                    <input type="submit" value="-" name="point" onclick="disable" class="btn btn-default btn-sm"/>
+                </div>
+            }          
             <p>Tags:</p>
             @{
                 foreach (var tag in @Model.ProblemToDisplay.Item1.Tags)
@@ -32,18 +40,21 @@
             @{
                 foreach (var comment in @Model.Comments)
                 {
-                    <div>
-                        <p>@comment.Key.Text</p>
-                    </div>
-                    <div>
-                        <p>Posted by: @comment.Value.Name</p>
-                    </div>
-                    <hr/>
+                    if (@comment.Key.ReplyToID == 0)
+                    {
+                        <div>
+                            <p>@comment.Key.Text</p>
+                        </div>
+                        <div>
+                            <p>Posted by: @comment.Value.Name</p>
+                        </div>
+                        <hr />
+                    }
                 }
             }
         </div>
         <div>
-            @using (Html.BeginForm("Detail", "Problem", FormMethod.Post))
+            @using (Html.BeginForm("PostComment", "Problem", FormMethod.Post))
             {
                 <h3>Add Comment</h3>
                 <input id="Hidden1" name="ProblemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID"/>

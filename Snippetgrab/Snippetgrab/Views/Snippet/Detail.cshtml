@@ -23,7 +23,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SnippetToDisplay.Item1.Points)
+            @using (Html.BeginForm("ChangePoint", "Snippet", FormMethod.Post))
+            {
+                <div>
+                    <input id="Hidden1" name="snippetId" type="hidden" value="@Model.SnippetToDisplay.Item1.ID" />
+                    <input type="submit" value="+" name="point" onclick="disable" class="btn btn-default btn-sm" />
+                    <p>Points: @Model.SnippetToDisplay.Item1.Points</p>
+                    <input type="submit" value="-" name="point" onclick="disable" class="btn btn-default btn-sm" />
+                </div>
+            }        
         </dd>
 
         <dt>
