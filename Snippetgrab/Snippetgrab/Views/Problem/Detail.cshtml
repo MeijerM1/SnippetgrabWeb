@@ -10,17 +10,17 @@
     <hr />
     <div class="col-md-4">
         <div class="container">
-            <p>Posted by:</p> 
+            <p>Posted by:</p>
             <p>@Model.ProblemToDisplay.Item2.Name</p>
-            @using (Html.BeginForm("ChangePoint", "Problem", FormMethod.Post))
+            @using (Html.BeginForm("ChangePointProblem", "Problem", FormMethod.Post))
             {
-                <div>      
-                    <input id="Hidden1" name="problemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />              
-                    <input type="submit" value="+" name="point" onclick="disable" class="btn btn-default btn-sm"/>
+                <div>
+                    <input id="Hidden1" name="problemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />
+                    <input type="submit" value="+" name="point" onclick="disable" class="btn btn-default btn-sm" />
                     <p>Points: @Model.ProblemToDisplay.Item1.Points</p>
-                    <input type="submit" value="-" name="point" onclick="disable" class="btn btn-default btn-sm"/>
+                    <input type="submit" value="-" name="point" onclick="disable" class="btn btn-default btn-sm" />
                 </div>
-            }          
+            }
             <p>Tags:</p>
             @{
                 foreach (var tag in @Model.ProblemToDisplay.Item1.Tags)
@@ -30,7 +30,7 @@
             }
         </div>
     </div>
-    
+
     <div class="col-md-8">
         <h3>@Model.ProblemToDisplay.Item1.Title</h3> <br />
         <p>@Model.ProblemToDisplay.Item1.Text</p>
@@ -40,14 +40,28 @@
             @{
                 foreach (var comment in @Model.Comments)
                 {
+
                     if (@comment.Key.ReplyToID == 0)
                     {
-                        <div>
-                            <p>@comment.Key.Text</p>
-                        </div>
-                        <div>
-                            <p>Posted by: @comment.Value.Name</p>
-                        </div>
+                        using (Html.BeginForm("ChangePointComment", "Problem", FormMethod.Post))
+                        {
+                            <input id="Hidden1" name="problemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />
+                            <input id="Hidden1" name="commentId" type="hidden" value="@comment.Key.ID" />
+                            <div class="media-body" style="overflow: visible;">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <p>Posted by: @comment.Value.Name </p>
+                                        <h5></h5>
+                                        <p>@comment.Key.Text</p>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <button class="btn btn-primary btn-sm" type="submit" name="point" value="+">+ </button>
+                                        <p class="text-left text-info">@comment.Key.Points </p>
+                                        <button class="btn btn-primary btn-sm" type="submit" name="point" value="-">- </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <hr />
                     }
                 }
@@ -57,14 +71,14 @@
             @using (Html.BeginForm("PostComment", "Problem", FormMethod.Post))
             {
                 <h3>Add Comment</h3>
-                <input id="Hidden1" name="ProblemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID"/>
+                <input id="Hidden1" name="ProblemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />
                 <textarea id="comment" name="commentText" rows="6" cols="40" class="form-control"></textarea><br />
-                <br/>
-                <input id="PostNewComment" type="submit" value="Post comment" class="btn btn-primary"/>
+                <br />
+                <input id="PostNewComment" type="submit" value="Post comment" class="btn btn-primary" />
             }
         </div>
     </div>
-    
+
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

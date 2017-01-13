@@ -92,7 +92,7 @@ namespace Snippetgrab.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePoint(int problemId, string point)
+        public ActionResult ChangePointProblem(int problemId, string point)
         {
             switch (point)
             {
@@ -104,9 +104,25 @@ namespace Snippetgrab.Controllers
                     break;
                 default:
                     return RedirectToAction("Detail", new { id = problemId });
-                    break;
             }
             
+            return RedirectToAction("Detail", new { id = problemId });
+        }
+
+        public ActionResult ChangePointComment(int problemId, string point, int commentId)
+        {
+            switch (point)
+            {
+                case "+":
+                    _commentRepo.ChangePoint(commentId, 1);
+                    break;
+                case "-":
+                    _commentRepo.ChangePoint(commentId, 0);
+                    break;
+                default:
+                    return RedirectToAction("Detail", new { id = problemId });
+            }
+
             return RedirectToAction("Detail", new { id = problemId });
         }
     }
