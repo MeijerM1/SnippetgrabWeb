@@ -48,8 +48,8 @@ namespace Snippetgrab.Controllers
             }
             else
             {
-                ViewBag.LoginError = "You are not logged in";
-                return LogIn();
+                ViewBag.ErrorMessage = "Incorrect username or password";
+                return View("LogIn");
             }
 
         }

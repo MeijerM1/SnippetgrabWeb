@@ -1,4 +1,5 @@
-﻿@model Snippetgrab.Models.ProblemModel
+﻿@using SnippetgrabClasslibrary.Models
+@model Snippetgrab.Models.ProblemModel
 
 @{
     ViewBag.Title = "Detail";
@@ -37,53 +38,31 @@
         <hr />
         <div class="container">
             <h3>Comments</h3>
-            <br/>
+            <br />
             @{
                 foreach (var comment in @Model.Comments)
                 {
-
                     if (@comment.Key.ReplyToID == 0)
                     {
                         using (Html.BeginForm("ChangePointComment", "Problem", FormMethod.Post))
                         {
                             <input id="Hidden1" name="problemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />
                             <input id="Hidden1" name="commentId" type="hidden" value="@comment.Key.ID" />
-                            <div class="media-body" style="overflow: visible; border-left: 1px; border-left-style: solid;">
-                                <div class="row" style="margin-left: 10px;">
-                                    <div class="col-xs-10">
-                                        <p>Posted by: @comment.Value.Name </p>
-                                        <h5></h5>
-                                        <p>@comment.Key.Text</p>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <button class="btn btn-primary btn-sm" type="submit" name="point" value="+">+ </button>
-                                        <p class="text-left text-info">@comment.Key.Points </p>
-                                        <button class="btn btn-primary btn-sm" type="submit" name="point" value="-">- </button>
-                                    </div>
-                                </div>
-                            </div>
-                            foreach (var replyComment in @Model.Comments)
-                            {
-                                if (replyComment.Key.ReplyToID == @comment.Key.ID)
-                                {
-                                    <br/>
-                                    <div class="media-body" style="overflow: visible; border-left: 1px; border-left-style: solid; margin-left: 30px">
-                                        <div class="row" style="margin-left: 10px;">
-                                            <div class="col-xs-10">
-                                                <p>Posted by: @replyComment.Value.Name </p>
-                                                <h5></h5>
-                                                <p>@replyComment.Key.Text</p>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <button class="btn btn-primary btn-sm" type="submit" name="point" value="+">+ </button>
-                                                <p class="text-left text-info">@replyComment.Key.Points </p>
-                                                <button class="btn btn-primary btn-sm" type="submit" name="point" value="-">- </button>
-                                            </div>
+                                <div class="media-body" style="overflow: visible; border-left: 1px; border-left-style: solid;" id="comment/@comment.Key.ID">
+                                    <div class="row" style="margin-left: 10px;">
+                                        <div class="col-xs-10">
+                                            <p>Posted by: @comment.Value.Name </p>
+                                            <h5></h5>
+                                            <p>@comment.Key.Text</p>
+                                            <a onclick="@DisplayReplies(@comment.Key.ID);" href="#">Show replies</a>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button class="btn btn-primary btn-sm" type="submit" name="point" value="+">+ </button>
+                                            <p class="text-left text-info">@comment.Key.Points </p>
+                                            <button class="btn btn-primary btn-sm" type="submit" name="point" value="-">- </button>
                                         </div>
                                     </div>
-                                    <br/>
-                                }
-                            }
+                                </div>
                         }
                         <hr />
                     }
@@ -95,9 +74,9 @@
             {
                 <h3>Add Comment</h3>
                 <input id="Hidden1" name="ProblemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />
-                <textarea id="comment" name="commentText" rows="6" cols="40" class="form-control"></textarea><br />
-                <br />
-                <input id="PostNewComment" type="submit" value="Post comment" class="btn btn-primary" />
+                    <textarea id="comment" name="commentText" rows="6" cols="40" class="form-control"></textarea><br />
+                    <br />
+                    <input id="PostNewComment" type="submit" value="Post comment" class="btn btn-primary" />
             }
         </div>
     </div>

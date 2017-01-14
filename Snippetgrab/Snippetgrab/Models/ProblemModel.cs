@@ -63,5 +63,11 @@ namespace Snippetgrab.Models
         {
             _problemRepo.AddProblem(problemToAdd);
         }
+
+        public Dictionary<Comment, User> getReplies(int commentId)
+        {
+            Dictionary<Comment, User> comments = Comments.Where(x => x.Key.ID == commentId).ToDictionary(p => p.Key, p => p.Value);
+            return comments;
+        }
     }
 }
