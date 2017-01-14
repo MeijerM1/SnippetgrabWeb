@@ -19,7 +19,7 @@ namespace Snippetgrab.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if ((int)Session["UserID"] == -1)
+            if ((int) Session["UserID"] == -1)
             {
                 return RedirectToAction("Login", "User");
             }
@@ -49,21 +49,59 @@ namespace Snippetgrab.Controllers
             else
             {
                 ViewBag.LoginError = "You are not logged in";
-                return LogIn();   
+                return LogIn();
             }
 
         }
 
         public ActionResult Detail()
         {
-            if ((int)Session["UserID"] == -1)
+            if ((int) Session["UserID"] == -1)
             {
                 return RedirectToAction("Login", "User");
             }
 
-            User userToDisplay = _userRepo.GetUserById((int)Session["userID"]);
+            User userToDisplay = _userRepo.GetUserById((int) Session["userID"]);
 
             return View(userToDisplay);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAccount()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccount(string Email, string Name, string Password, string ConfirmPassword)
+        {
+
+            if (Password != ConfirmPassword)
+            {
+                ViewBag.ErrorMessage = "PAsswords do not match";
+                return View("CreateAccount");
+            }
+            else if (_userRepo.GetUserByEmail(Email) != null)
+            {
+                ViewBag.ErrorMessage = "Email already in use";
+                return View("CreateAccount");
+            }
+            else
+            {
+                DateTime today = DateTime.Today;
+                List<int> tags = new List<int>();
+                var newUser = new User(Name, today, 0, Email, false, tags);
+                try
+                {
+                    _userRepo.AddUser(newUser, Password);
+                }
+                catch (Exception e )
+                {
+                    ViewBag.ErrorMessage = "Something went wrong: " + e.Message;
+                    return View("CreateAccount");
+                }
+                return RedirectToAction("LogIn");
+            }
         }
     }
 }

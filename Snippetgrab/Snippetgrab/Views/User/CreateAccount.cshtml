@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Create Account";
+}
+
+<h2>Create new account</h2>
+
+@using (Html.BeginForm("CreateAccount", "User"))
+{
+    <div>
+        <label for="Email">Email address</label>
+        <input type="email" class="default form-control" name="Email" placeholder="Email@example.com" required>
+
+        <label for="Name">Name</label>
+        <input type="text" class="default form-control" name="Name" placeholder="Name" required>
+
+        <label for="Password">Password</label>
+        <input type="password" class="default form-control" name="Password" placeholder="Password" required>
+
+        <label for="ConfirmPassword">Password</label>
+        <input type="password" class="default form-control" name="ConfirmPassword"  placeholder="Confirm Password" required>
+
+        <input type="submit" class="btn btn-primary" value="Register" />
+    </div>
+}
