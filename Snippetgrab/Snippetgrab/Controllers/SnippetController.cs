@@ -49,8 +49,15 @@ namespace Snippetgrab.Controllers
 
             if (ModelState.IsValid)
             {
-                newSnippet.AuthorID = (int)Session["UserID"];
                 newSnippet.Points = 1;
+                if (form["checkboxTag"] == null)
+                {
+                    ViewBag.ErrorMessage = "No tags selected";
+                    return RedirectToAction("Add");
+                }
+
+                 newSnippet.AuthorID = (int)Session["UserID"];
+                
                 var AllStrings = form["checkboxTag"].Split(',');
                 foreach (string item in AllStrings)
                 {

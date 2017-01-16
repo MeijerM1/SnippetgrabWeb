@@ -19,7 +19,7 @@
                     <input id="Hidden1" name="problemId" type="hidden" value="@Model.ProblemToDisplay.Item1.ID" />
                     <input type="submit" value="+" name="point" onclick="disable" class="btn btn-default btn-sm" />
                     <p>Points: @Model.ProblemToDisplay.Item1.Points</p>
-                    <input type="submit" value="-" name="point" onclick="disable" class="btn btn-default btn-sm" />
+                    <input type="submit" value="-" name="point" class="btn btn-default btn-sm" />
                 </div>
             }
             <p>Tags:</p>
@@ -53,8 +53,7 @@
                                         <div class="col-xs-10">
                                             <p>Posted by: @comment.Value.Name </p>
                                             <h5></h5>
-                                            <p>@comment.Key.Text</p>
-                                            <a onclick="@DisplayReplies(@comment.Key.ID);" href="#">Show replies</a>
+                                            <p>@comment.Key.Text</p>                                           
                                         </div>
                                         <div class="col-xs-2">
                                             <button class="btn btn-primary btn-sm" type="submit" name="point" value="+">+ </button>
